@@ -3,15 +3,9 @@ class DB {
     static private $instance;
     private $dbh;
     private function __construct(){
-<<<<<<< HEAD
-        $this->dbh = new PDO('mysql:host=127.0.0.1;dbname=account' , 'root' , 'Hysj12)9-JiKmmy');
-    }
-
-=======
         $this->dbh = new PDO('mysql:host=111.231.106.198;dbname=account' , 'suishouji' , 'Hysj12)9-JiKmmy-#@!');
     }
-//   /usr/local/nginx/conf/ssl/www.isoftware.xyz.crt    /usr/local/nginx/conf/ssl/www.isoftware.xyz.key
->>>>>>> 3c40cdc2234d6c72c2cd88a7fd8e894ac3896a8a
+
     private function __clone(){}
 
     static public function getInstance() {
@@ -20,24 +14,14 @@ class DB {
         }
         return self::$instance;
      }
-<<<<<<< HEAD
-     
-=======
 
->>>>>>> 3c40cdc2234d6c72c2cd88a7fd8e894ac3896a8a
      // 获取单条记录
      public function getRow($sql , $params = [], $type=PDO::FETCH_ASSOC) {
          $sth = $this->dbh->prepare($sql);
          $sth->execute($params);
          return $sth->fetch($type);
      }
-<<<<<<< HEAD
-     
-     // 获取所有记录 
-=======
 
-     // 获取所有记录
->>>>>>> 3c40cdc2234d6c72c2cd88a7fd8e894ac3896a8a
      public function getAll($sql,$params = []) {
          $sth = $this->dbh->prepare($sql);
          $sth->execute($params);
@@ -57,35 +41,11 @@ class DB {
         $sth->execute(array_values($data));
         return $this->dbh->lastInsertId();
      }
-<<<<<<< HEAD
-    
-=======
 
->>>>>>> 3c40cdc2234d6c72c2cd88a7fd8e894ac3896a8a
      // 删除
      public function deleteRow($sql) {
         $result = $this->dbh->query($sql);
         if ($result) return true;
-<<<<<<< HEAD
-        return false;     
-     }
- 
-     // 更新修改
-     public function update($table , $data) {
-        if ( !$table || empty($data) ) die('Params Error');
-        
-        $sth_field = $this->dbh->query("SHOW COLUMNS FROM `$table`");
-        $fields = $sth_field->fetchAll();
-    
-        $set = [];
-        $sql = $where = '';    
-        foreach ( $data as $k => $v) {
-            
-            foreach ( $fields as $fk => $fv) {
-                if ($k == $fv['Field']) { 
-                    if ($fv['Key'] == 'PRI') {
-                        $where = " WHERE `{$k}` = " . (is_numeric($v) ? $v : "'{$v}'"); 
-=======
         return false;
      }
 
@@ -104,7 +64,6 @@ class DB {
                 if ($k == $fv['Field']) {
                     if ($fv['Key'] == 'PRI') {
                         $where = " WHERE `{$k}` = " . (is_numeric($v) ? $v : "'{$v}'");
->>>>>>> 3c40cdc2234d6c72c2cd88a7fd8e894ac3896a8a
                         unset($data[$k]);
                         continue;
                     }
@@ -115,14 +74,8 @@ class DB {
                 }
             }
         }
-<<<<<<< HEAD
-        //var_dump($set);
-        $sql = "UPDATE `{$table}` SET " . rtrim($sql , ',') . $where;
-        //die($sql);
-=======
 
         $sql = "UPDATE `{$table}` SET " . rtrim($sql , ',') . $where;
->>>>>>> 3c40cdc2234d6c72c2cd88a7fd8e894ac3896a8a
         $sth = $this->dbh->prepare($sql);
         return $sth->execute($set);
      }
