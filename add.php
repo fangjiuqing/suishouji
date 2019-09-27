@@ -4,8 +4,12 @@ include_once 'pdo.class.php';
 
 $data = isset($_POST['data']) ? $_POST['data'] : [];
 
-
 if (!empty($data)) {
+    $openid = isset($_POST['openid']) ? $_POST['openid'] : '';
+
+    if ( !$openid ) out_fail(404);
+    $data['openid'] = $openid;
+
     if ( preg_match('/^\d{4}-\d{2}-\d{2}$/',$data['created_at']) ) {
         //out_fail('ok');
         $data['created_at'] = strtotime($data['created_at']);
@@ -17,10 +21,10 @@ if (!empty($data)) {
             $navss = array_flip($navs);
             $data['cat'] = $navss[$data['cat']];
         }
-    } 
+    }
 
     $dbh = DB::getInstance();
-    
+
     $lastId = $dbh->insert('account' , $data);
 
     if ( $lastId ) {
